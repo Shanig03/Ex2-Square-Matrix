@@ -19,10 +19,35 @@ int main(){
     std::cout << mat << std::endl;
 
 
-    std::cout << matrix - mat << std::endl;
-    std::cout << -mat << std::endl;
+    //std::cout << matrix - mat << std::endl;
+    //std::cout << -mat << std::endl;
 
-    std::cout << matrix + mat << std::endl;
+    //std::cout << matrix + mat << std::endl;
+
+    /*
+    std::cout << 2 * mat << std::endl;
+    std::cout << matrix * 3 << std::endl;
+
+    std::cout << matrix % mat << std::endl;
+
+    std::cout << matrix % 2 << std::endl;
+
+    std::cout << matrix / 2 << std::endl;
+    std::cout << "matrix++ :\n" << matrix++ << std::endl;
+    std::cout << "++mat :\n" << ++mat << std::endl;
+    std::cout << "matrix :\n" << matrix << std::endl;
+
+    std::cout << "matrix-- :\n" <<  matrix-- << std::endl;
+    std::cout << "--mat :\n" << --mat << std::endl;
+    std::cout << "matrix :\n" <<matrix << std::endl;
+    */
+
+    std::cout << "matrix :\n" << ~matrix << std::endl;
+
+
+
+
+
 
     return 0;
 }

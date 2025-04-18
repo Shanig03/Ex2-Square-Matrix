@@ -1,4 +1,5 @@
 #include "SquareMat.hpp"
+#include <cmath>
 
 namespace squareMatrix {
 
@@ -69,12 +70,12 @@ namespace squareMatrix {
 
         // Ensure the matrices are of the same size
         if (this->n != other.n) {
-            throw std::invalid_argument("Matrices must have the same size for addition.");
+            throw std::invalid_argument("Matrices must have the same size for substraction.");
         }
         // Create a new matrix to store the result
         SquareMat result(this->n);
 
-        // Add corresponding elements of both matrices
+        // Substract corresponding elements of both matrices
         for (int i = 0; i < this->n; ++i) {
             for (int j = 0; j < this->n; ++j) {
                 result[i][j] = this->matrix[i][j] - other.matrix[i][j];
@@ -89,7 +90,7 @@ namespace squareMatrix {
         // Create a new matrix to store the result
         SquareMat result(this->n);
 
-        // Add corresponding elements of both matrices
+        // Add minus for each number in the matrix
         for (int i = 0; i < this->n; ++i) {
             for (int j = 0; j < this->n; ++j) {
                 double val = this->matrix[i][j];
@@ -100,6 +101,120 @@ namespace squareMatrix {
         return result;
     }
 
+    // Multiply from the right
+    SquareMat SquareMat::operator*(int scalar) const {
+        SquareMat result(this->n);
+        for (int i = 0; i < this->n; ++i) {
+            for (int j = 0; j < this->n; ++j) {
+                result[i][j] = this->matrix[i][j] * scalar;
+            }
+        }
+        return result;
+    }
+
+    // Multiply from the left, non member friend function  
+    SquareMat operator*(int scalar, const SquareMat& matrix) {
+        // Just reuse the member operator
+        return matrix * scalar;
+    }
+
+    SquareMat SquareMat::operator%(const SquareMat& other) const{
+        // Ensure the matrices are of the same size
+        if (this->n != other.n) {
+            throw std::invalid_argument("Matrices must have the same size for Multiplication.");
+        }
+        // Create a new matrix to store the result
+        SquareMat result(this->n);
+
+        // Multiply corresponding elements of both matrices
+        for (int i = 0; i < this->n; ++i) {
+            for (int j = 0; j < this->n; ++j) {
+                result[i][j] = this->matrix[i][j] * other.matrix[i][j];
+            }
+        }
+
+        return result;
+    }
+
+
+    // Modolu with scalar for each numer in the matrix
+    SquareMat SquareMat::operator%(int scalar) const{
+
+        // need to check if the scalar is an integer?
+
+        SquareMat result(this->n);
+        for (int i = 0; i < this->n; ++i) {
+            for (int j = 0; j < this->n; ++j) {
+                result[i][j] = std::fmod(this->matrix[i][j], scalar); // For floating-point modulo
+            }
+        }
+        return result;
+    }
+
+
+    // Divide each number in the matrix by a given scalar
+    SquareMat SquareMat::operator/(int scalar) const{
+        SquareMat result(this->n);
+        for (int i = 0; i < this->n; ++i) {
+            for (int j = 0; j < this->n; ++j) {
+                result[i][j] = this->matrix[i][j] / scalar;
+            }
+        }
+        return result;
+    }
+
+    // ++mat
+    // increments the matrix first, then returns a reference to the updated matrix.
+    SquareMat& SquareMat::operator++(){
+        for (int i = 0; i < n; ++i){
+            for (int j = 0; j < n; ++j){
+                ++matrix[i][j];
+            }   
+        }
+            
+        return *this;
+    } 
+
+    // mat++
+    // copies the current matrix, then increments the original 
+    // and returns the copy before increment
+    SquareMat SquareMat::operator++(int){
+        SquareMat temp = *this; // Copy
+        ++(*this); // Increment
+        return temp;
+    }  
+
+    // --mat
+    SquareMat& SquareMat::operator--(){
+        for (int i = 0; i < n; ++i){
+            for (int j = 0; j < n; ++j){
+                --matrix[i][j];
+            }   
+        }
+            
+        return *this;
+
+    } 
+
+    // mat--
+    SquareMat SquareMat::operator--(int){
+        SquareMat temp = *this; // Copy
+        --(*this); 
+        return temp;
+    }
+
+
+    SquareMat SquareMat::operator~() const{
+        SquareMat result(this->n);
+
+        for (int i = 0; i < n; ++i){
+            for (int j = 0; j < n; ++j){
+                result[i][j] = matrix[j][i];
+                result[j][i] = matrix[i][j];
+            }   
+        }
+        return result;
+    }
 
 
     // Gets the data with option to change it
