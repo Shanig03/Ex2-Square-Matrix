@@ -40,9 +40,10 @@ int main(){
     std::cout << "matrix-- :\n" <<  matrix-- << std::endl;
     std::cout << "--mat :\n" << --mat << std::endl;
     std::cout << "matrix :\n" <<matrix << std::endl;
+    std::cout << "matrix multiply mat:\n" << matrix*mat << std::endl;
     */
 
-    std::cout << "matrix :\n" << ~matrix << std::endl;
+    std::cout << "matrix ^2:\n" << (matrix^3) << std::endl;
 
 
 

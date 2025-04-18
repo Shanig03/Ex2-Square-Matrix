@@ -101,6 +101,25 @@ namespace squareMatrix {
         return result;
     }
 
+    SquareMat SquareMat::operator*(const SquareMat& other) const{
+        if (this->n != other.n) {
+            throw std::invalid_argument("Matrix sizes must match for multiplication.");
+        }
+
+        SquareMat result(this->n);
+        for (int i = 0; i < this->n; ++i) {
+            for (int j = 0; j < this->n; ++j) {
+                double sum = 0;
+                for (int k = 0; k < this->n; ++k) {
+                    sum += this->matrix[i][k] * other.matrix[k][j];
+                }
+                result[i][j] = sum;
+            }
+        }
+        return result;
+    }
+
+
     // Multiply from the right
     SquareMat SquareMat::operator*(int scalar) const {
         SquareMat result(this->n);
@@ -160,6 +179,29 @@ namespace squareMatrix {
                 result[i][j] = this->matrix[i][j] / scalar;
             }
         }
+        return result;
+    }
+
+    // Multiply the matrix by itself 'power' times
+    SquareMat SquareMat::operator^(int power) const{
+        if (power < 0) {
+            throw std::invalid_argument("Negative powers are not supported.");
+        }
+
+        SquareMat result(this->n);
+
+        // Initialize result as identity matrix
+        for (int i = 0; i < n; ++i) {
+            for (int j = 0; j < n; ++j) {
+                result[i][j] = (i == j) ? 1 : 0;
+            }
+        }
+
+        // Multiply result by the matrix 'power' times
+        for (int i = 0; i < power; ++i) {
+            result = result * (*this);
+        }
+      
         return result;
     }
 
@@ -248,6 +290,25 @@ namespace squareMatrix {
             os << std::endl;
         }
         return os;
+    }
+
+    SquareMat& SquareMat::operator=(SquareMat&& other) noexcept {
+        if (this != &other) {
+            // Free current matrix
+            for (int i = 0; i < n; ++i) {
+                delete[] matrix[i];
+            }
+            delete[] matrix;
+    
+            // Steal other's resources
+            this->n = other.n;
+            this->matrix = other.matrix;
+    
+            // Null out other's matrix so its destructor won't delete it
+            other.matrix = nullptr;
+            other.n = 0;
+        }
+        return *this;
     }
 
 }
