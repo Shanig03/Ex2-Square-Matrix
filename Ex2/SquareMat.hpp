@@ -68,8 +68,6 @@ namespace squareMatrix {
         bool operator<=(const SquareMat& other) const;
         bool operator>=(const SquareMat& other) const;
 
-        double matrixSum(const SquareMat& mat) const;
-
 
         // דטרמיננטה (!mat)
         double operator!() const;
@@ -77,9 +75,12 @@ namespace squareMatrix {
         // אופרטורים משולבים += -= *= /= %=
         SquareMat& operator+=(const SquareMat& other);
         SquareMat& operator-=(const SquareMat& other);
+
         SquareMat& operator*=(const SquareMat& other); // כפל מטריצות
         SquareMat& operator*=(int scalar);
+
         SquareMat& operator/=(int scalar);
+
         SquareMat& operator%=(const SquareMat& other);
         SquareMat& operator%=(int scalar);
 
@@ -91,7 +92,11 @@ namespace squareMatrix {
         SquareMat& operator=(const SquareMat& other);
         SquareMat& operator=(SquareMat&& other) noexcept;
 
+        private:
+        double matrixSum(const SquareMat& mat) const;
+
     };
+
 }
 
 #endif

@@ -18,6 +18,11 @@ int main(){
     std::cout << matrix << std::endl;
     std::cout << mat << std::endl;
 
+    mat *= matrix;
+    std::cout << "multiply mat by matrix: \n" << mat << std::endl;
+
+    matrix /= 2;
+    std::cout << "divide matrix by 2: \n" << matrix << std::endl;
 
     //std::cout << matrix - mat << std::endl;
     //std::cout << -mat << std::endl;
@@ -25,6 +30,13 @@ int main(){
     //std::cout << matrix + mat << std::endl;
 
     /*
+
+    mat += matrix;
+    std::cout << "added matrix to mat: \n" << mat << std::endl;
+    matrix -= mat;
+    std::cout << "substract matrix from mat: \n" << matrix << std::endl;
+
+
     std::cout << 2 * mat << std::endl;
     std::cout << matrix * 3 << std::endl;
 
@@ -72,7 +84,7 @@ int main(){
     mat2[2][2] = -1;
 
     
-    std::cout << "matrix determinant:\n" << (!mat2) << std::endl;
+    //std::cout << "matrix determinant:\n" << (!mat2) << std::endl;
 
 
     return 0;

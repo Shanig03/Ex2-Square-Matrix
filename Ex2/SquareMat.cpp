@@ -3,7 +3,7 @@
 
 namespace squareMatrix {
 
-    // Constractor
+    // Constructor
     SquareMat::SquareMat(int matrixSize){
         if (matrixSize < 0){
             throw std::invalid_argument("Size of matrix must be greater than 0.");
@@ -31,7 +31,7 @@ namespace squareMatrix {
     }
 
 
-    // Destractor
+    // Destructor
     SquareMat::~SquareMat(){
         // Free each dynamically allocated "matrix line"
         for (int i = 0; i < n; ++i) {
@@ -158,7 +158,9 @@ namespace squareMatrix {
 
     // Modolu with scalar for each numer in the matrix
     SquareMat SquareMat::operator%(int scalar) const{
-
+        if (scalar == 0) {
+            throw std::domain_error("Modulo by zero scalar.");
+        }
         // need to check if the scalar is an integer?
 
         SquareMat result(this->n);
@@ -173,6 +175,10 @@ namespace squareMatrix {
 
     // Divide each number in the matrix by a given scalar
     SquareMat SquareMat::operator/(int scalar) const{
+        if (scalar == 0) {
+            throw std::invalid_argument("Division by zero.");
+        }
+        
         SquareMat result(this->n);
         for (int i = 0; i < this->n; ++i) {
             for (int j = 0; j < this->n; ++j) {
@@ -252,7 +258,7 @@ namespace squareMatrix {
         for (int i = 0; i < n; ++i){
             for (int j = 0; j < n; ++j){
                 result[i][j] = matrix[j][i];
-                result[j][i] = matrix[i][j];
+                //result[j][i] = matrix[i][j];
             }   
         }
         return result;
@@ -347,7 +353,104 @@ namespace squareMatrix {
         return det;
     }
 
+    SquareMat& SquareMat::operator+=(const SquareMat& other){
+        if (this->n != other.n) {
+            throw std::invalid_argument("Matrix dimensions must match for addition.");
+        }
+    
+        for (int i = 0; i < n; ++i){
+            for (int j = 0; j < n; ++j){
+                this->matrix[i][j] += other[i][j];
+            }
+        }
+    
+        return *this;
 
+    }
+
+
+    
+    SquareMat& SquareMat::operator-=(const SquareMat& other){
+        if (this->n != other.n) {
+            throw std::invalid_argument("Matrix dimensions must match for subtraction.");
+        }
+    
+        for (int i = 0; i < n; ++i){
+            for (int j = 0; j < n; ++j){
+                this->matrix[i][j] -= other[i][j];
+            }
+        }
+    
+        return *this;
+    }
+
+
+    SquareMat& SquareMat::operator*=(const SquareMat& other){
+        if (this->n != other.n) {
+            throw std::invalid_argument("Matrix dimensions must match for multiplication.");
+        }
+    
+        SquareMat result = (*this) * other; // Use your existing operator*
+        *this = result; // Use copy assignment instead of move
+        return *this;
+
+    }
+
+
+    SquareMat& SquareMat::operator*=(int scalar){
+        for (int i = 0; i < n; ++i){
+            for (int j = 0; j < n; ++j){
+                matrix[i][j] *= scalar;
+            }
+        }
+        return *this;
+    }
+
+    SquareMat& SquareMat::operator/=(int scalar){
+        if (scalar == 0) {
+            throw std::invalid_argument("Division by zero.");
+        }
+
+        for (int i = 0; i < n; ++i){
+            for (int j = 0; j < n; ++j){
+                matrix[i][j] /= scalar;
+            }
+        }
+
+        return *this;
+    }
+
+
+    // Multiply number by the number in the coresponding place in thre second matrix
+    SquareMat& SquareMat::operator%=(const SquareMat& other){
+
+        if (this->n != other.n) {
+            throw std::invalid_argument("Matrix dimensions must match for element-wise modulo.");
+        }
+    
+        for (int i = 0; i < n; ++i) {
+            for (int j = 0; j < n; ++j) {
+                matrix[i][j] = this->matrix[i][j] * other.matrix[i][j];
+            }
+        }
+        return *this;
+    }
+
+
+    // Modulo operation with scalar
+    SquareMat& SquareMat::operator%=(int scalar){
+        if (scalar == 0) {
+            throw std::domain_error("Modulo by zero scalar.");
+        }
+
+        for (int i = 0; i < n; ++i) {
+            for (int j = 0; j < n; ++j) {
+                matrix[i][j] = std::fmod(matrix[i][j], scalar);
+            }
+        }
+        return *this;
+
+    }
 
 
     //need to add SquareMat:: ??
@@ -383,5 +486,31 @@ namespace squareMatrix {
         }
         return *this;
     }
+
+
+    SquareMat& SquareMat::operator=(const SquareMat& other) {
+        if (this != &other) {
+            // Free current matrix
+            if (matrix != nullptr) {
+                for (int i = 0; i < n; ++i) {
+                    delete[] matrix[i];
+                }
+                delete[] matrix;
+            }
+            
+            n = other.n;
+    
+            // Allocate new memory
+            matrix = new double*[n];
+            for (int i = 0; i < n; ++i) {
+                matrix[i] = new double[n];
+                for (int j = 0; j < n; ++j) {
+                    matrix[i][j] = other.matrix[i][j];
+                }
+            }
+        }
+        return *this;
+    }
+    
 
 }
