@@ -278,17 +278,7 @@ namespace squareMatrix {
 
 
     bool SquareMat::operator==(const SquareMat& other) const {
-        double sumMat1 = 0;
-        double sumMat2 = 0;
-
-        for (int i = 0; i < n; ++i){
-            for (int j = 0; j < n; ++j){
-                sumMat1 += this->matrix[i][j];
-                sumMat2 += other[i][j];
-            }
-        }
-
-        return sumMat1 == sumMat2;
+        return this->matrixSum(*this) == matrixSum(other);
     }
 
     bool SquareMat::operator!=(const SquareMat& other) const{
@@ -301,27 +291,62 @@ namespace squareMatrix {
     }
 
     bool SquareMat::operator>(const SquareMat& other) const{
-        double sumMat1 = 0;
-        double sumMat2 = 0;
-
-        for (int i = 0; i < n; ++i){
-            for (int j = 0; j < n; ++j){
-                sumMat1 += this->matrix[i][j];
-                sumMat2 += other[i][j];
-            }
-        }
-        return sumMat1 > sumMat2;
+        return this->matrixSum(*this) > matrixSum(other);
     }
 
-    double SquareMat::matrixSum(const SquareMat& mat){
+    bool SquareMat::operator<=(const SquareMat& other) const{
+        double sum1 = matrixSum(*this);
+        double sum2 = matrixSum(other);
+        return sum1 <= sum2;    }
+
+
+    bool SquareMat::operator>=(const SquareMat& other) const{
+        double sum1 = matrixSum(*this);
+        double sum2 = matrixSum(other);
+        return sum1 >= sum2;    }
+
+    double SquareMat::matrixSum(const SquareMat& mat) const{
         double sumMat = 0;
-        for (int i = 0; i < n; ++i){
-            for (int j = 0; j < n; ++j){
+        for (int i = 0; i < mat.n; ++i){
+            for (int j = 0; j < mat.n; ++j){
                 sumMat += mat[i][j];
             }
         }
         return sumMat;
     }
+
+    double SquareMat::operator!() const{
+        // For matrix 1x1
+        if (n == 1) {
+            return matrix[0][0];
+        }
+        // For matrix 2x2
+        if (n == 2) {
+            return matrix[0][0] * matrix[1][1] - matrix[0][1] * matrix[1][0];
+        }
+        
+        // For n > 2
+        double det = 0;
+        for (int col = 0; col < n; ++col) {
+            // Create a minor matrix
+            SquareMat minorMat(n - 1);
+            for (int i = 1; i < n; ++i) {
+                int minorCol = 0;
+                for (int j = 0; j < n; ++j) {
+                    if (j == col) continue;
+                    minorMat[i - 1][minorCol] = matrix[i][j];
+                    ++minorCol;
+                }
+            }
+
+            // Recursive call with cofactor expansion
+            double sign = (col % 2 == 0) ? 1 : -1;
+            det += sign * matrix[0][col] * !minorMat;
+        }
+
+        return det;
+    }
+
 
 
 

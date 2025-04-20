@@ -42,28 +42,37 @@ int main(){
     std::cout << "matrix :\n" <<matrix << std::endl;
     std::cout << "matrix multiply mat:\n" << matrix*mat << std::endl;
     std::cout << "matrix ^2:\n" << (matrix^3) << std::endl;
+
+    std::cout << "matrix equals?:\n" << (mat2 == matrix2) << std::endl;
+
+    std::cout << "matrix not equals?:\n" << (mat2 != matrix2) << std::endl;
+
+    std::cout << ">?:\n" << (mat2 > matrix2) << std::endl;
+
+    std::cout << "<:\n" << (mat2 < matrix2) << std::endl;
+
+    std::cout << ">=?:\n" << (mat2 >= matrix2) << std::endl;
+
+    std::cout << "<=:\n" << (mat2 <= matrix2) << std::endl;
     */
 
     
     //std::cout << "matrix equals?:\n" << (mat == matrix) << std::endl;
 
-    squareMatrix::SquareMat matrix2(2);
+    squareMatrix::SquareMat mat2(3);
 
-    matrix2[0][0] = 13.3;
-    matrix2[0][1] = 3.567;
-    matrix2[1][0] = 2.08;
-    matrix2[1][1] = 4.231234561;
+    mat2[0][0] = -2;
+    mat2[0][1] = 2;
+    mat2[0][2] = -3;
+    mat2[1][0] = -1;
+    mat2[1][1] = 1;
+    mat2[1][2] = 3;
+    mat2[2][0] = 2;
+    mat2[2][1] = 0;
+    mat2[2][2] = -1;
 
-    squareMatrix::SquareMat mat2(2);
-
-    mat2[0][0] = 13.3;
-    mat2[0][1] = 3.567;
-    mat2[1][0] = 2.08;
-    mat2[1][1] = 4.231234561;
-
-    std::cout << "matrix equals?:\n" << (mat2 == matrix2) << std::endl;
-
-    std::cout << "matrix not equals?:\n" << (mat2 != matrix2) << std::endl;
+    
+    std::cout << "matrix determinant:\n" << (!mat2) << std::endl;
 
 
     return 0;

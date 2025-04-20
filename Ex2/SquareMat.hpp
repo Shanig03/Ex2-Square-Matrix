@@ -68,11 +68,11 @@ namespace squareMatrix {
         bool operator<=(const SquareMat& other) const;
         bool operator>=(const SquareMat& other) const;
 
-        double matrixSum(const SquareMat& mat);
+        double matrixSum(const SquareMat& mat) const;
 
 
         // דטרמיננטה (!mat)
-        int operator!() const;
+        double operator!() const;
     
         // אופרטורים משולבים += -= *= /= %=
         SquareMat& operator+=(const SquareMat& other);
