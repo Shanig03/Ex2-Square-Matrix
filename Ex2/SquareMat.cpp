@@ -277,6 +277,54 @@ namespace squareMatrix {
     }
 
 
+    bool SquareMat::operator==(const SquareMat& other) const {
+        double sumMat1 = 0;
+        double sumMat2 = 0;
+
+        for (int i = 0; i < n; ++i){
+            for (int j = 0; j < n; ++j){
+                sumMat1 += this->matrix[i][j];
+                sumMat2 += other[i][j];
+            }
+        }
+
+        return sumMat1 == sumMat2;
+    }
+
+    bool SquareMat::operator!=(const SquareMat& other) const{
+        return !(*this == other);
+    }
+
+
+    bool SquareMat::operator<(const SquareMat& other) const{
+        return this->matrixSum(*this) < matrixSum(other);
+    }
+
+    bool SquareMat::operator>(const SquareMat& other) const{
+        double sumMat1 = 0;
+        double sumMat2 = 0;
+
+        for (int i = 0; i < n; ++i){
+            for (int j = 0; j < n; ++j){
+                sumMat1 += this->matrix[i][j];
+                sumMat2 += other[i][j];
+            }
+        }
+        return sumMat1 > sumMat2;
+    }
+
+    double SquareMat::matrixSum(const SquareMat& mat){
+        double sumMat = 0;
+        for (int i = 0; i < n; ++i){
+            for (int j = 0; j < n; ++j){
+                sumMat += mat[i][j];
+            }
+        }
+        return sumMat;
+    }
+
+
+
     //need to add SquareMat:: ??
     std::ostream& operator<<(std::ostream& os, const SquareMat& mat) {
         for (int i = 0; i < mat.n; ++i) {

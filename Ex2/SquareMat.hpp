@@ -68,6 +68,9 @@ namespace squareMatrix {
         bool operator<=(const SquareMat& other) const;
         bool operator>=(const SquareMat& other) const;
 
+        double matrixSum(const SquareMat& mat);
+
+
         // דטרמיננטה (!mat)
         int operator!() const;
     
