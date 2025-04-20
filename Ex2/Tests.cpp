@@ -2,6 +2,8 @@
 #include "doctest.h"
 #include "SquareMat.hpp"
 #include <sstream>
+#include <stdexcept>
+
 
 using namespace squareMatrix;
 
@@ -241,4 +243,90 @@ TEST_CASE("Compound assignment operators") {
         CHECK(c[0][0] == 0);
     }
     
+}
+
+TEST_CASE("Test Exceptions"){
+    // Test case for constructor exception
+    SUBCASE("SquareMat Constructor Exception") {
+        CHECK_THROWS_AS(SquareMat(-1), std::invalid_argument); // Negative size
+    }
+
+    // Test case for addition operator exception
+    SUBCASE("SquareMat Addition Operator Exception") {
+        SquareMat mat1(3);
+        SquareMat mat2(2);
+        CHECK_THROWS_AS(mat1 + mat2, std::invalid_argument);  // Matrices with different sizes
+    }
+
+    // Test case for subtraction operator exception
+    SUBCASE("SquareMat Subtraction Operator Exception") {
+        SquareMat mat1(3);
+        SquareMat mat2(2);
+        CHECK_THROWS_AS(mat1 - mat2, std::invalid_argument);  // Matrices with different sizes
+    }
+
+    // Test case for multiplication operator exception
+    SUBCASE("SquareMat Multiplication Operator Exception") {
+        SquareMat mat1(3); 
+        SquareMat mat2(2); 
+        CHECK_THROWS_AS(mat1 * mat2, std::invalid_argument);  // Matrices with different sizes
+    }
+
+    // Test case for modulo operator exception with scalar 0
+    SUBCASE("SquareMat Modulo Operator Exception (Scalar)") {
+        SquareMat mat(3);
+        CHECK_THROWS_AS(mat % 0, std::domain_error);  // Modulo by zero
+    }
+
+    // Test case for division operator exception with scalar 0
+    SUBCASE("SquareMat Division Operator Exception (Scalar)") {
+        SquareMat mat(3); 
+        CHECK_THROWS_AS(mat / 0, std::invalid_argument);  // Division by zero
+    }
+
+    // Test case for negative power exception
+    SUBCASE("SquareMat Power Operator Exception") {
+        SquareMat mat(3);  
+        CHECK_THROWS_AS(mat ^ -1, std::invalid_argument);  // Negative power
+    }
+
+    // Test case for out-of-bounds index exception
+    SUBCASE("SquareMat Index Operator Exception") {
+        SquareMat mat(3); 
+        CHECK_THROWS_AS(mat[3], std::out_of_range);  // Index out of bounds (row 3 in a 3x3 matrix)
+        CHECK_THROWS_AS(mat[-1], std::out_of_range);  // Negative index
+    }
+
+    // Test case for matrix addition with mismatched dimensions for compound assignment
+    SUBCASE("SquareMat Compound Addition Operator Exception") {
+        SquareMat mat1(3); 
+        SquareMat mat2(2); 
+        CHECK_THROWS_AS(mat1 += mat2, std::invalid_argument);  // Matrices with different sizes
+    }
+
+    // Test case for matrix subtraction with mismatched dimensions for compound assignment
+    SUBCASE("SquareMat Compound Subtraction Operator Exception") {
+        SquareMat mat1(3);  
+        SquareMat mat2(2); 
+        CHECK_THROWS_AS(mat1 -= mat2, std::invalid_argument);  // Matrices with different sizes
+    }
+
+    // Test case for matrix multiplication with mismatched dimensions for compound assignment
+    SUBCASE("SquareMat Compound Multiplication Operator Exception") {
+        SquareMat mat1(3); 
+        SquareMat mat2(2); 
+        CHECK_THROWS_AS(mat1 *= mat2, std::invalid_argument);  // Matrices with different sizes
+    }
+
+    // Test case for matrix division by zero for compound assignment
+    SUBCASE("SquareMat Compound Division Operator Exception") {
+        SquareMat mat(3); 
+        CHECK_THROWS_AS(mat /= 0, std::invalid_argument);  // Division by zero
+    }
+
+    // Test case for matrix modulo by zero for compound assignment
+    SUBCASE("SquareMat Compound Modulo Operator Exception") {
+        SquareMat mat(3);  
+        CHECK_THROWS_AS(mat %= 0, std::domain_error);  // Modulo by zero
+    }
 }
