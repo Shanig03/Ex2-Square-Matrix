@@ -1,4 +1,4 @@
-# SquareMat - Fully Overloaded Square Matrix Class
+# Matrix Operators Project
 
 ## Overview
 
