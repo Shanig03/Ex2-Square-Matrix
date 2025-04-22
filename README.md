@@ -1,4 +1,4 @@
-# Matrix Operators Project
+# Square Matrix Project
 
 ## Overview
 
@@ -19,10 +19,12 @@ The implementation emphasizes:
 
 | Operator       | Description                                                      |
 |----------------|------------------------------------------------------------------|
-| `+`, `-`, `*`, `/` | Element-wise matrix addition, subtraction, multiplication, and scalar division |
-| `+=`, `-=`, `*=` | Compound arithmetic assignments                                 |
+| `+`, `-`, `%`, `*` , `/` | Element-wise matrix addition, subtraction, multiplication, scalar multiplication, and scalar division |
+| `mat1*mat2` | Matrix multiplication |
+| `-mat` | Unary minus |
+| `+=`, `-=`, `*=`, `/=`, `%=` | Compound arithmetic assignments                                 |
 | `==`, `!=`, `<`, `<=`, `>`, `>=` | Matrix comparisons (by sum of all elements)                 |
-| `[]`, `()`     | Element access (1D or 2D style)                                   |
+| `[]`     | Element access                                                       |
 | `++`, `--`     | Element-wise increment and decrement (prefix and postfix)        |
 | `!mat`         | Determinant of the matrix                                         |
 | `~mat`         | Transpose of the matrix                                           |
