@@ -7,9 +7,11 @@ namespace squareMatrix {
 
     // Constructor
     SquareMat::SquareMat(int matrixSize){
+        // Check that the matrix size is a valid number
         if (matrixSize < 0){
             throw std::invalid_argument("Size of matrix must be greater than 0.");
         }
+
         this->n = matrixSize;
         matrix = new double*[matrixSize];
         for (int i = 0; i < matrixSize; ++i) {
@@ -23,8 +25,10 @@ namespace squareMatrix {
         // Allocate memory for the new matrix
         this->n = other.n;
         this->matrix = new double*[this->n];
+
         for (int i = 0; i < this->n; ++i) {
             this->matrix[i] = new double[this->n];
+
             // Copy each element from the other matrix
             for (int j = 0; j < this->n; ++j) {
                 this->matrix[i][j] = other.matrix[i][j];
@@ -48,6 +52,7 @@ namespace squareMatrix {
     }
 
 
+    // Matrix addition
     SquareMat SquareMat::operator+(const SquareMat& other) const{
         // Ensure the matrices are of the same size
         if (this->n != other.n) {
@@ -68,13 +73,13 @@ namespace squareMatrix {
     }
 
 
+    // Matrix substraction
     SquareMat SquareMat::operator-(const SquareMat& other) const{
 
         // Ensure the matrices are of the same size
         if (this->n != other.n) {
             throw std::invalid_argument("Matrices must have the same size for substraction.");
         }
-        // Create a new matrix to store the result
         SquareMat result(this->n);
 
         // Substract corresponding elements of both matrices
@@ -88,6 +93,7 @@ namespace squareMatrix {
 
     }
 
+    // Unary minus
     SquareMat SquareMat::operator-() const{
         // Create a new matrix to store the result
         SquareMat result(this->n);
@@ -103,6 +109,7 @@ namespace squareMatrix {
         return result;
     }
 
+    // Matrix multiplication 
     SquareMat SquareMat::operator*(const SquareMat& other) const{
         if (this->n != other.n) {
             throw std::invalid_argument("Matrix sizes must match for multiplication.");
@@ -122,7 +129,7 @@ namespace squareMatrix {
     }
 
 
-    // Multiply from the right
+    // Multiply by scalar from the right
     SquareMat SquareMat::operator*(int scalar) const {
         SquareMat result(this->n);
         for (int i = 0; i < this->n; ++i) {
@@ -133,18 +140,18 @@ namespace squareMatrix {
         return result;
     }
 
-    // Multiply from the left, non member friend function  
+    // Multiply by scalar from the left (non member friend function)
     SquareMat operator*(int scalar, const SquareMat& matrix) {
-        // Just reuse the member operator
         return matrix * scalar;
     }
 
+
+    // Multiply 2 matrices- each value in the matrix with the corresponding value in the other matrix
     SquareMat SquareMat::operator%(const SquareMat& other) const{
         // Ensure the matrices are of the same size
         if (this->n != other.n) {
             throw std::invalid_argument("Matrices must have the same size for Multiplication.");
         }
-        // Create a new matrix to store the result
         SquareMat result(this->n);
 
         // Multiply corresponding elements of both matrices
@@ -163,7 +170,6 @@ namespace squareMatrix {
         if (scalar == 0) {
             throw std::domain_error("Modulo by zero scalar.");
         }
-        // need to check if the scalar is an integer?
 
         SquareMat result(this->n);
         for (int i = 0; i < this->n; ++i) {
@@ -229,8 +235,8 @@ namespace squareMatrix {
     // copies the current matrix, then increments the original 
     // and returns the copy before increment
     SquareMat SquareMat::operator++(int){
-        SquareMat temp = *this; // Copy
-        ++(*this); // Increment
+        SquareMat temp = *this; 
+        ++(*this);
         return temp;
     }  
 
@@ -248,19 +254,19 @@ namespace squareMatrix {
 
     // mat--
     SquareMat SquareMat::operator--(int){
-        SquareMat temp = *this; // Copy
+        SquareMat temp = *this; 
         --(*this); 
         return temp;
     }
 
 
+    // Matrix transpose 
     SquareMat SquareMat::operator~() const{
         SquareMat result(this->n);
 
         for (int i = 0; i < n; ++i){
             for (int j = 0; j < n; ++j){
                 result[i][j] = matrix[j][i];
-                //result[j][i] = matrix[i][j];
             }   
         }
         return result;
@@ -285,34 +291,45 @@ namespace squareMatrix {
     }
 
 
+    // Equality comparison by the sum of the matrix values
     bool SquareMat::operator==(const SquareMat& other) const {
         return this->matrixSum(*this) == matrixSum(other);
     }
 
+
+    // Not equals
     bool SquareMat::operator!=(const SquareMat& other) const{
         return !(*this == other);
     }
 
 
+    // Smaller then, by sum of matrix values
     bool SquareMat::operator<(const SquareMat& other) const{
         return this->matrixSum(*this) < matrixSum(other);
     }
 
+
+    // Bigger then, by sum of matrix values
     bool SquareMat::operator>(const SquareMat& other) const{
         return this->matrixSum(*this) > matrixSum(other);
     }
 
+
+    // Smaller then or equals, by sum of matrix values
     bool SquareMat::operator<=(const SquareMat& other) const{
         double sum1 = matrixSum(*this);
         double sum2 = matrixSum(other);
         return sum1 <= sum2;    }
 
 
+    // Bigger then or equals, by sum of matrix values
     bool SquareMat::operator>=(const SquareMat& other) const{
         double sum1 = matrixSum(*this);
         double sum2 = matrixSum(other);
         return sum1 >= sum2;    }
 
+
+    // Helper function to calculate the sum of the matrix
     double SquareMat::matrixSum(const SquareMat& mat) const{
         double sumMat = 0;
         for (int i = 0; i < mat.n; ++i){
@@ -323,6 +340,8 @@ namespace squareMatrix {
         return sumMat;
     }
 
+
+    // Determinant
     double SquareMat::operator!() const{
         // For matrix 1x1
         if (n == 1) {
@@ -355,6 +374,8 @@ namespace squareMatrix {
         return det;
     }
 
+
+    // Compound operator for addition
     SquareMat& SquareMat::operator+=(const SquareMat& other){
         if (this->n != other.n) {
             throw std::invalid_argument("Matrix dimensions must match for addition.");
@@ -371,7 +392,7 @@ namespace squareMatrix {
     }
 
 
-    
+    // Compound operator for substraction
     SquareMat& SquareMat::operator-=(const SquareMat& other){
         if (this->n != other.n) {
             throw std::invalid_argument("Matrix dimensions must match for subtraction.");
@@ -386,7 +407,7 @@ namespace squareMatrix {
         return *this;
     }
 
-
+    // Compound operator for matrix multiplication
     SquareMat& SquareMat::operator*=(const SquareMat& other){
         if (this->n != other.n) {
             throw std::invalid_argument("Matrix dimensions must match for multiplication.");
@@ -398,7 +419,7 @@ namespace squareMatrix {
 
     }
 
-
+    // Compound operator for matrix multiplication by scalar
     SquareMat& SquareMat::operator*=(int scalar){
         for (int i = 0; i < n; ++i){
             for (int j = 0; j < n; ++j){
@@ -408,6 +429,8 @@ namespace squareMatrix {
         return *this;
     }
 
+
+    // Compound operator for matrix division by scalar
     SquareMat& SquareMat::operator/=(int scalar){
         if (scalar == 0) {
             throw std::invalid_argument("Division by zero.");
@@ -423,7 +446,7 @@ namespace squareMatrix {
     }
 
 
-    // Multiply number by the number in the coresponding place in thre second matrix
+    // Multiply number by the number in the corresponding place in thre second matrix
     SquareMat& SquareMat::operator%=(const SquareMat& other){
 
         if (this->n != other.n) {
@@ -455,7 +478,7 @@ namespace squareMatrix {
     }
 
 
-    //need to add SquareMat:: ??
+    // Compound operator for matrix printing
     std::ostream& operator<<(std::ostream& os, const SquareMat& mat) {
         for (int i = 0; i < mat.n; ++i) {
             if (mat.matrix[i] == nullptr) {
@@ -470,6 +493,8 @@ namespace squareMatrix {
         return os;
     }
 
+
+    // Assignment operator
     SquareMat& SquareMat::operator=(SquareMat&& other) noexcept {
         if (this != &other) {
             // Free current matrix
@@ -490,6 +515,7 @@ namespace squareMatrix {
     }
 
 
+    // Assignment operator
     SquareMat& SquareMat::operator=(const SquareMat& other) {
         if (this != &other) {
             // Free current matrix

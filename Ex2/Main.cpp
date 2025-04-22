@@ -1,93 +1,101 @@
 // Email: shanig7531@gmail.com
 
 #include "SquareMat.hpp"
+#include <iostream>
 
-int main(){
-    squareMatrix::SquareMat matrix(2);
+using namespace squareMatrix;
 
-    matrix[0][0] = 1;
-    matrix[0][1] = 3;
-    matrix[1][0] = 2;
-    matrix[1][1] = 4;
+int main() {
+    std::cout << "===== Initializing 2x2 matrices =====\n";
+    SquareMat A(2), B(2);
+    A[0][0] = 1; 
+    A[0][1] = 3;
+    A[1][0] = 2; 
+    A[1][1] = 4;
 
-    squareMatrix::SquareMat mat(2);
+    B[0][0] = 0; 
+    B[0][1] = 3;
+    B[1][0] = 2; 
+    B[1][1] = 4;
 
-    mat[0][0] = 0;
-    mat[0][1] = 3;
-    mat[1][0] = 2;
-    mat[1][1] = 4;
+    std::cout << "Matrix A:\n" << A << "\n";
+    std::cout << "Matrix B:\n" << B << "\n";
 
-    std::cout << matrix << std::endl;
-    std::cout << mat << std::endl;
+    std::cout << "===== Arithmetic Operations =====\n";
+    std::cout << "A + B:\n" << (A + B) << "\n";
+    std::cout << "A - B:\n" << (A - B) << "\n";
+    std::cout << "-A:\n" << (-A) << "\n";
 
-    mat *= matrix;
-    std::cout << "multiply mat by matrix: \n" << mat << std::endl;
+    std::cout << "A * B:\n" << (A * B) << "\n";
+    std::cout << "A * 2:\n" << (A * 2) << "\n";
+    std::cout << "3 * B:\n" << (3 * B) << "\n";
 
-    matrix /= 2;
-    std::cout << "divide matrix by 2: \n" << matrix << std::endl;
+    std::cout << "A / 2:\n" << (A / 2) << "\n";
+    std::cout << "A % B:\n" << (A % B) << "\n";
+    std::cout << "A % 2:\n" << (A % 2) << "\n";
 
-    //std::cout << matrix - mat << std::endl;
-    //std::cout << -mat << std::endl;
+    std::cout << "===== Compound Assignment Operators =====\n";
+    SquareMat C = A;
+    C += B;
+    std::cout << "C = A AND C += B:\n" << C << "\n";
 
-    //std::cout << matrix + mat << std::endl;
+    C -= B;
+    std::cout << "C -= B:\n" << C << "\n";
 
-    /*
+    C *= B;
+    std::cout << "C *= B:\n" << C << "\n";
 
-    mat += matrix;
-    std::cout << "added matrix to mat: \n" << mat << std::endl;
-    matrix -= mat;
-    std::cout << "substract matrix from mat: \n" << matrix << std::endl;
+    C *= 3;
+    std::cout << "C *= 3:\n" << C << "\n";
 
+    C /= 2;
+    std::cout << "C /= 2:\n" << C << "\n";
 
-    std::cout << 2 * mat << std::endl;
-    std::cout << matrix * 3 << std::endl;
+    C %= B;
+    std::cout << "C %= B:\n" << C << "\n";
 
-    std::cout << matrix % mat << std::endl;
+    C %= 3;
+    std::cout << "C %= 3:\n" << C << "\n";
 
-    std::cout << matrix % 2 << std::endl;
+    std::cout << "===== Increment / Decrement Operators =====\n";
+    std::cout << "C++:\n" << C++ << "\n";
+    std::cout << "After C++:\n" << C << "\n";
+    std::cout << "++C:\n" << ++C << "\n";
 
-    std::cout << matrix / 2 << std::endl;
-    std::cout << "matrix++ :\n" << matrix++ << std::endl;
-    std::cout << "++mat :\n" << ++mat << std::endl;
-    std::cout << "matrix :\n" << matrix << std::endl;
+    std::cout << "C--:\n" << C-- << "\n";
+    std::cout << "After C--:\n" << C << "\n";
+    std::cout << "--C:\n" << --C << "\n";
 
-    std::cout << "matrix-- :\n" <<  matrix-- << std::endl;
-    std::cout << "--mat :\n" << --mat << std::endl;
-    std::cout << "matrix :\n" <<matrix << std::endl;
-    std::cout << "matrix multiply mat:\n" << matrix*mat << std::endl;
-    std::cout << "matrix ^2:\n" << (matrix^3) << std::endl;
+    std::cout << "===== Power Operator =====\n";
+    std::cout << "A ^ 2:\n" << (A ^ 2) << "\n";
 
-    std::cout << "matrix equals?:\n" << (mat2 == matrix2) << std::endl;
+    std::cout << "===== Comparison Operators =====\n";
+    SquareMat D = A;
+    std::cout << "D (copy of A):\n" << D << "\n";
 
-    std::cout << "matrix not equals?:\n" << (mat2 != matrix2) << std::endl;
+    std::cout << "A == D: " << (A == D) << "\n";
+    std::cout << "A != B: " << (A != B) << "\n";
+    std::cout << "A > B: " << (A > B) << "\n";
+    std::cout << "A < B: " << (A < B) << "\n";
+    std::cout << "A >= D: " << (A >= D) << "\n";
+    std::cout << "A <= D: " << (A <= D) << "\n";
 
-    std::cout << ">?:\n" << (mat2 > matrix2) << std::endl;
+    std::cout << "===== Transpose and Determinant =====\n";
+    std::cout << "~A (transpose):\n" << ~A << "\n";
 
-    std::cout << "<:\n" << (mat2 < matrix2) << std::endl;
+    SquareMat E(3);
+    E[0][0] = -2; 
+    E[0][1] = 2; 
+    E[0][2] = -3;
+    E[1][0] = -1; 
+    E[1][1] = 1; 
+    E[1][2] = 3;
+    E[2][0] = 2;  
+    E[2][1] = 0; 
+    E[2][2] = -1;
 
-    std::cout << ">=?:\n" << (mat2 >= matrix2) << std::endl;
-
-    std::cout << "<=:\n" << (mat2 <= matrix2) << std::endl;
-    */
-
-    
-    //std::cout << "matrix equals?:\n" << (mat == matrix) << std::endl;
-
-    squareMatrix::SquareMat mat2(3);
-
-    mat2[0][0] = -2;
-    mat2[0][1] = 2;
-    mat2[0][2] = -3;
-    mat2[1][0] = -1;
-    mat2[1][1] = 1;
-    mat2[1][2] = 3;
-    mat2[2][0] = 2;
-    mat2[2][1] = 0;
-    mat2[2][2] = -1;
-
-    
-    //std::cout << "matrix determinant:\n" << (!mat2) << std::endl;
-
+    std::cout << "Matrix E:\n" << E << "\n";
+    std::cout << "!E (determinant): " << !E << "\n";
 
     return 0;
 }
