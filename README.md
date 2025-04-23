@@ -2,11 +2,17 @@
 
 ## Overview
 
+Email: shanig7531@gmail.com
+
 This project implements a custom `SquareMat` class for square matrices in C++, under the `squareMatrix` namespace. It supports a wide variety of operator overloads, including arithmetic, comparison, scalar operations, and advanced features like matrix exponentiation, transpose, and determinant.
+
+
+It doesn't use vectors or other STL containers—just raw pointers and manual memory management. All features are tested with Doctest, and memory is checked with Valgrind to make sure there are no leaks.
+
+You can build, run, test, and check everything using make.
 
 The implementation emphasizes:
 - Manual memory management (no STL containers used)
-- Deep copy and move semantics
 - Clean operator overloading for intuitive mathematical syntax
 - Thorough testing with `Doctest`
 - Memory safety checked with `valgrind`
@@ -28,9 +34,9 @@ The implementation emphasizes:
 | `++`, `--`     | Element-wise increment and decrement (prefix and postfix)        |
 | `!mat`         | Determinant of the matrix                                         |
 | `~mat`         | Transpose of the matrix                                           |
-| `mat ^ n`      | Matrix raised to power `n` (only integers, including 0)          |
+| `mat ^ n`      | Matrix raised to power `n`      |
 | `mat % n`      | Matrix modulo scalar `n` (element-wise)                          |
-| `<<`           | Stream output (for `std::cout`, etc.)                            |
+| `<<`           | Stream output                        |
 
 ---
 
@@ -62,20 +68,13 @@ make Main
 ```bash
 make valgrind
 ```
+
+### Test running
+```bash
+make test
+```
 ### Clean Build Files
 ```bash
 make clean
 ```
-## Usage example
 
-```bash
-SquareMat a(2);
-a[0][0] = 1; a[0][1] = 3;
-a[1][0] = 2; a[1][1] = 4;
-
-SquareMat b = ~a;         // Transpose
-SquareMat c = a * b;      // Matrix multiplication
-SquareMat d = c / 2;      // Scalar division
-bool isEqual = (a == b);  // Comparison
-double det = !a;          // Determinant
-```
