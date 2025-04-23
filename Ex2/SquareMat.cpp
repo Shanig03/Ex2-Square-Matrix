@@ -198,7 +198,7 @@ namespace squareMatrix {
 
     // Multiply the matrix by itself 'power' times
     SquareMat SquareMat::operator^(int power) const{
-        if (power < 0) {
+        if (power <= 0) {
             throw std::invalid_argument("Negative powers are not supported.");
         }
 
@@ -276,7 +276,7 @@ namespace squareMatrix {
     // Gets the data with option to change it
     double* SquareMat::operator[](int row) {
         if (row < 0 || row >= n) {
-            throw std::out_of_range("Row index out of range.");
+            throw std::out_of_range("Index out of range.");
         }
         return matrix[row];
     }
@@ -285,7 +285,7 @@ namespace squareMatrix {
     // Gets the data without changing it
     const double* SquareMat::operator[](int row) const{
         if (row < 0 || row >= n) {
-            throw std::out_of_range("Row index out of range.");
+            throw std::out_of_range("Index out of range.");
         }
         return matrix[row];
     }

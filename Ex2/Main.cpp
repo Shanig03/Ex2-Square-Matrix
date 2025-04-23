@@ -18,8 +18,17 @@ int main() {
     B[1][0] = 2; 
     B[1][1] = 4;
 
+
     std::cout << "Matrix A:\n" << A << "\n";
     std::cout << "Matrix B:\n" << B << "\n";
+
+    std::cout << "Trying to access the matrix with index out of range:\n";
+    try {
+        A[8][7] = 9;   
+    }
+    catch(const std::out_of_range& e){
+        std::cerr << e.what() << "\n\n";
+    } 
 
     std::cout << "===== Arithmetic Operations =====\n";
     std::cout << "A + B:\n" << (A + B) << "\n";

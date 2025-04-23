@@ -88,7 +88,7 @@ TEST_CASE("Scalar multiplication and division") {
     CHECK(d[1][1] == 2);
 }
 
-TEST_CASE("Matrix multiplication number by the corresponding number") {
+TEST_CASE("Matrix multiplication value by the corresponding value") {
     SquareMat a(2);
     a[0][0] = 5; 
     a[1][1] = 8;
@@ -189,9 +189,28 @@ TEST_CASE("Determinant (! operator)") {
     a[0][1] = 2;
     a[1][0] = 3; 
     a[1][1] = 4;
+
+    SquareMat b(3);
+    b[0][0] = 1; 
+    b[0][1] = 1;
+    b[0][2] = 1;
+    b[1][0] = 1;
+    b[1][1] = 1;
+    b[1][2] = 1;
+    b[2][0] = 1;
+    b[2][1] = 1; 
+    b[2][2] = 1;
+
+    SquareMat c(1);
+    c[0][0] = 3; 
     
     double det = !a;
-    CHECK(det == doctest::Approx(-2.0));//??
+    double det2 = !b;
+    double det3 = !c; // Matrix 1x1
+
+    CHECK(det == doctest::Approx(-2.0));
+    CHECK(det2 == 0);
+    CHECK(det3 == 3);
 }
 
 TEST_CASE("Compound assignment operators") {
@@ -295,7 +314,7 @@ TEST_CASE("Test Exceptions"){
     // Test case for out-of-bounds index exception
     SUBCASE("SquareMat Index Operator Exception") {
         SquareMat mat(3); 
-        CHECK_THROWS_AS(mat[3], std::out_of_range);  // Index out of bounds (row 3 in a 3x3 matrix)
+        CHECK_THROWS_AS(mat[3], std::out_of_range);  // Index out of bounds - row 3 in a 3x3 matrix
         CHECK_THROWS_AS(mat[-1], std::out_of_range);  // Negative index
     }
 
