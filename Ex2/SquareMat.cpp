@@ -7,7 +7,7 @@ namespace squareMatrix {
 
     // Constructor
     SquareMat::SquareMat(int matrixSize){
-        // Check that the matrix size is a valid number
+        // Check that the matrix size is valid
         if (matrixSize < 0){
             throw std::invalid_argument("Size of matrix must be greater than 0.");
         }
@@ -198,7 +198,7 @@ namespace squareMatrix {
 
     // Multiply the matrix by itself 'power' times
     SquareMat SquareMat::operator^(int power) const{
-        if (power <= 0) {
+        if (power < 0) {
             throw std::invalid_argument("Negative powers are not supported.");
         }
 
@@ -209,6 +209,10 @@ namespace squareMatrix {
             for (int j = 0; j < n; ++j) {
                 result[i][j] = (i == j) ? 1 : 0;
             }
+        }
+
+        if (power == 0) {
+            return result;
         }
 
         // Multiply result by the matrix 'power' times
@@ -297,7 +301,7 @@ namespace squareMatrix {
     }
 
 
-    // Not equals
+    // Not equals, by sum of matrix values
     bool SquareMat::operator!=(const SquareMat& other) const{
         return !(*this == other);
     }
@@ -366,7 +370,7 @@ namespace squareMatrix {
                 }
             }
 
-            // Recursive call with cofactor expansion
+            // Recursive call
             double sign = (col % 2 == 0) ? 1 : -1;
             det += sign * matrix[0][col] * !minorMat;
         }

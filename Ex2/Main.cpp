@@ -6,6 +6,7 @@
 using namespace squareMatrix;
 
 int main() {
+    
     std::cout << "===== Initializing 2x2 matrices =====\n";
     SquareMat A(2), B(2);
     A[0][0] = 1; 
@@ -77,6 +78,7 @@ int main() {
 
     std::cout << "===== Power Operator =====\n";
     std::cout << "A ^ 2:\n" << (A ^ 2) << "\n";
+    std::cout << "A ^ 0 (Identity matrix):\n" << (A ^ 0) << "\n";
 
     std::cout << "===== Comparison Operators =====\n";
     SquareMat D = A;

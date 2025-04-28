@@ -66,7 +66,7 @@ namespace squareMatrix {
         bool operator<=(const SquareMat& other) const;
         bool operator>=(const SquareMat& other) const;
 
-        // Determinant (!mat)
+        // Determinant 
         double operator!() const;
     
         // Compound operators += -= *= /= %=
